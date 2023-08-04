@@ -1,0 +1,1415 @@
+.workshop-content-hack {
+    clear: both;
+    display: none;
+}
+
+#section--about-papazian, #section--luxurious-products, #section--making-history, #section--latest-news, #section--contact {
+    -webkit-transform: translate3d(0, 0, 0);
+}
+
+@media (min-width: 769px) {
+    .tease-post--large .tease-image {
+        overflow: hidden;
+        width: auto;
+    }
+
+    .tease-post--large .tease-image img {
+        display: block;
+        height: auto;
+        left: 50%;
+        max-width: 150%;
+        min-height: 100%;
+        min-width: 100%;
+        position: absolute;
+        top: 50%;
+        transform: translate(-50%, -50%);
+    }
+}
+
+@media (max-width: 1300px) {
+    .navigation--product {
+        padding-top: 170px;
+    }
+
+    .navigation--product .navigation--product__link {
+        left: auto;
+        position: static;
+        top: auto;
+        width: auto;
+    }
+
+    .max-width-4 {
+        max-width: 90%;
+    }
+
+    .home-history-image {
+        height: auto;
+    }
+}
+
+@media (max-width: 1200px) {
+    .product__gallery .slick-active .slide__info {
+        padding: 0 30px;
+    }
+
+    .product__gallery .slide__counter {
+        right: 30px;
+    }
+
+    .product__gallery .slick-prev {
+        bottom: auto;
+        left: 35px;
+        top: calc(50% - 73px);
+    }
+
+    .product__gallery .slick-next {
+        bottom: auto;
+        right: 35px;
+        top: calc(50% - 73px);
+    }
+}
+
+@media (max-width: 700px) {
+    .mfp-bottom-bar {
+        box-sizing: border-box;
+        padding: 0 30px;
+    }
+
+    .mfp-counter {
+        right: 30px;
+    }
+}
+
+@media (max-width: 1024px) {
+    .post-blank-column--middle {
+        width: 5%;
+    }
+
+    .post-text {
+        width: 36.66666%;
+    }
+
+    .tease-preview div {
+        display: none;
+    }
+
+    .article-image {
+        float: none;
+        margin-left: 0;
+        margin-right: 0;
+    }
+
+    .article-image img {
+        height: auto;
+        width: 100%;
+    }
+
+    .container--search__results .button--download {
+        margin-top: 2rem;
+    }
+
+    .container--share {
+        padding: 75px 0;
+    }
+
+    .breadcrumbs__right {
+        display: none;
+    }
+
+    .gform_fields .gfield_checkbox li {
+        width: 45%;
+    }
+
+    .article-intro__title {
+        margin-bottom: 30px;
+    }
+
+    .material__company {
+        padding-left: 2rem;
+        padding-right: 2rem;
+    }
+
+    .map__panel {
+        width: 70%;
+    }
+
+    .container--map-canvas {
+        width: 30%;
+    }
+
+    .slider--timeline .slide__bottom--right {
+        overflow: hidden;
+    }
+
+    .slider--timeline .slide__bottom--right img {
+        height: 300px;
+        max-width: none;
+        width: auto;
+    }
+
+    .search-results .container--search__results .tease-product {
+        width: 33.3333%;
+    }
+
+    .search-results .container--search__results .tease-post {
+        width: 33.3333%;
+    }
+
+    .menu--title .button--download {
+        max-width: 140px;
+        display: block;
+        position: relative;
+        float: initial;
+        padding-left: 0;
+        margin: 10px 0;
+    }
+
+    .home-about-workshop .home-about-workshop__right:before {
+        width: 30px;
+    }
+
+    .slider--products .slide__left__content .title--big {
+        font-size: 40px;
+    }
+
+    .home-about-workshop .home-about-workshop__left:after {
+        width: 30px;
+    }
+
+    .home-history-column {
+        max-width: 235px;
+    }
+
+    .slick-prev:hover {
+        transform: translate(0, -50%) !important;
+    }
+
+    .slick-next:hover {
+        transform: translate(0, -50%) !important;
+    }
+
+    .container--map {
+        height: auto;
+    }
+
+    .map__panel {
+        position: static;
+        width: 100%;
+    }
+
+    .container--map-canvas {
+        width: 100%;
+        float: none;
+    }
+
+    .product__materials .lg-col-6 {
+        float: none;
+        width: 100%;
+    }
+
+    .product__materials .button--clear {
+        margin-top: 2rem;
+    }
+
+    #section-navigation {
+        display: none;
+    }
+
+    .slider--products .slide__left {
+        background-image: none !important;
+    }
+
+    .tease-post--large .tease-title {
+        font-size: 25px;
+        padding-left: 0;
+    }
+
+    .toolbar {
+        margin-bottom: 40px;
+    }
+
+    .toolbar a {
+        margin-top: 25px;
+    }
+
+    .toolbar .button--view-large {
+        margin-top: 0;
+    }
+}
+
+@media (max-width: 1024px) and (min-width: 961px) {
+    .workshop-content .workshop__title {
+        display: none;
+    }
+
+    .workshop-content .workshop__content {
+        display: none;
+    }
+
+    .workshop-content .workshop__note {
+        display: none;
+    }
+
+    .workshop-content-hack {
+        display: block;
+        padding-top: 60px;
+    }
+
+    .timeline-intro__left {
+        box-sizing: border-box;
+        float: none;
+        width: 100%;
+    }
+
+    .timeline-intro__right {
+        float: none;
+        width: 100%;
+    }
+
+    .slider--products .slide__right__content {
+        margin: 0 auto;
+        width: 80%;
+    }
+
+    .menu-hack.menu-item-has-children > a {
+        line-height: 1.5;
+        padding-right: 75%;
+    }
+
+    .menu--products .menu-hack ul {
+        margin-top: -32px;
+    }
+
+    .container--news .lg-col-3 {
+        width: 33.333333%;
+    }
+
+    .container--products .lg-col-3 {
+        width: 33.333333%;
+    }
+
+    .slider--products .slick-slide img {
+        max-width: 70%;
+    }
+}
+
+@media (max-width: 960px) {
+    .navigation--product {
+        display: none;
+    }
+
+    .navigation--post {
+        display: none;
+    }
+
+    .container--material__title:after {
+        background: #dfd8d2;
+        content: '';
+        display: block;
+        height: 1px;
+        position: absolute;
+        right: 0;
+        transition: all 1s ease;
+        width: 100%;
+    }
+
+    .menu-blank-column {
+        display: none;
+    }
+
+    .rp-latest-post {
+        display: none;
+    }
+
+    .vjs-marker:before {
+        display: none;
+    }
+
+    .material__company {
+        width: 50%;
+    }
+
+    .back-to-top span {
+        opacity: 0;
+        visibility: hidden;
+    }
+
+    #section--timeline {
+        padding-bottom: 75px;
+    }
+
+    .home-about-workshop .home-about-workshop__left {
+        display: none;
+    }
+
+    .home-about-workshop .home-about-workshop__right {
+        display: none;
+    }
+
+    .container--section--luxurious-products {
+        margin: 0 5%;
+    }
+
+    #section--making-history {
+        padding-bottom: 0;
+    }
+
+    #footer .max-width-4 {
+        max-width: 525px;
+    }
+
+    .back-to-top {
+        top: -40px;
+    }
+
+    .newsletter {
+        margin-top: 60px;
+    }
+
+    .slider--related-products .slick-prev {
+        left: 0;
+    }
+
+    .slider--related-products .slick-next {
+        right: 0;
+    }
+
+    .slider--related-news .slick-prev {
+        left: 0;
+    }
+
+    .slider--related-news .slick-next {
+        right: 0;
+    }
+
+    .filters {
+        padding-top: 25px;
+    }
+
+    .home-history-column {
+        max-width: 250px;
+    }
+
+    .post-blank-column {
+        display: none;
+    }
+
+    .post-content {
+        padding: 0 30px;
+    }
+
+    .workshop__box {
+        margin: 0 auto;
+        position: static;
+    }
+
+    .workshop-blank-column {
+        display: none;
+    }
+
+    .workshop {
+        padding-bottom: 75px;
+        padding-top: 75px;
+    }
+
+    .workshop-content {
+        width: 41.66667%;
+    }
+
+    .workshop__gallery .button--photo-gallery {
+        left: auto;
+        right: 15px;
+    }
+
+    #section--workshop {
+        padding-bottom: 75px;
+    }
+
+    #section--map {
+        padding-top: 75px;
+    }
+
+    .product__gallery .slide__counter {
+        display: none;
+    }
+
+    .related-products-stamp {
+        top: -70px;
+    }
+}
+
+@media (max-width: 768px) {
+    .tease-post--large .tease-title {
+        font-size: 20px;
+        margin-bottom: 1rem;
+    }
+
+    .post-image {
+        width: 100%;
+    }
+
+    .post-image img {
+        width: 100%;
+        height: auto;
+    }
+
+    .post-content {
+        top: auto;
+        transform: none;
+        padding: 30px;
+    }
+
+    .post-text {
+        width: 100%;
+    }
+
+    .tease-post--large {
+        height: auto;
+    }
+
+    .tease-post--large .tease-image {
+        height: auto;
+        max-height: 320px;
+        overflow: hidden;
+        width: 100%;
+    }
+
+    .footer__credits span {
+        display: block;
+    }
+
+    .thumb {
+        width: 33.333333%;
+    }
+
+    h1,
+    .entry-title,
+    .title--big {
+        font-size: 50px;
+    }
+
+    .slider--collections .slick-prev {
+        right: 100px;
+    }
+
+    .entry-title__links {
+        text-align: left;
+        margin-top: 2rem;
+    }
+
+    .slider--related-products .slick-prev {
+        left: 0;
+    }
+
+    .slider--related-products .slick-next {
+        right: 0;
+    }
+
+    .home-history-column {
+        display: block;
+        margin: 0 auto 40px auto;
+        max-width: 80%;
+    }
+
+    .search-results .container--search__results .tease-product {
+        width: 50%;
+    }
+
+    .search-results .container--search__results .tease-post {
+        width: 50%;
+    }
+
+    .section--about-papazian__content .button--dark {
+        margin-top: 50px;
+    }
+
+    .mat__title {
+        position: static;
+    }
+
+    .max-width-2 {
+        width: 83.33333%;
+    }
+
+    .products-stamp {
+        right: -10px;
+        top: -110px;
+    }
+
+    .collections-stamp {
+        right: -10px;
+    }
+
+    .collection__products {
+        padding-left: 60px;
+    }
+
+    .slider--collections .slick-prev {
+        transform: none !important;
+    }
+
+    .slider--collections .slick-next {
+        transform: none !important;
+    }
+
+    .material__company {
+        padding: 2rem;
+    }
+
+    .slider--products .slide__left {
+        background-image: none !important;
+    }
+
+    .timeline-years__year:first-child {
+        font-size: 25px;
+    }
+
+    .timeline-years__year:last-child {
+        font-size: 25px;
+    }
+
+    .slider--colors .slick-prev {
+        bottom: -35px;
+        left: 0;
+    }
+
+    .slider--colors .slick-next {
+        bottom: -35px;
+        right: 0;
+    }
+
+    .slider-products-left {
+        float: none;
+        width: 100%;
+    }
+
+    .slider-products-right {
+        float: none;
+        width: 100%;
+    }
+
+    .slider--products .slide__left {
+        background-image: none !important;
+        height: auto !important;
+    }
+
+    .slider--products .slide__right {
+        /*background-image: none !important;*/
+        /*max-width: 520px;*/
+        height: auto !important;
+        margin: 0 auto;
+        padding: 75px;
+    }
+
+    .slider--products .slide__left .vcenter {
+        top: auto;
+        transform: none;
+    }
+
+    .slider--products .slide__right .vcenter {
+        top: auto;
+        transform: none;
+    }
+
+    #section--luxurious-products {
+        padding-bottom: 75px;
+    }
+
+    .slider--products .slick-prev {
+        left: 0;
+        top: 150px;
+    }
+
+    .slider--products .slick-next {
+        right: 0;
+        top: 150px;
+    }
+
+    .slider--products .slide__counter {
+        display: none;
+    }
+
+    .slider--products .slide__left:before {
+        content: none;
+    }
+
+    .slider--products .slide__left:after {
+        content: none;
+    }
+
+    .video-custom-controls {
+        display: none !important;
+    }
+
+    .timeline-intro__left {
+        box-sizing: border-box;
+        float: none;
+        width: 100%;
+    }
+
+    .timeline-intro__right {
+        float: none;
+        width: 100%;
+    }
+
+    .slider--products .slick-slide img {
+        max-height: 300px;
+    }
+
+    .slider--products .slide__left__content {
+        padding-bottom: 40px;
+    }
+
+    .workshop-gallery {
+        box-sizing: border-box;
+        margin-top: 3rem;
+        width: 100%;
+    }
+
+    .workshop-content {
+        box-sizing: border-box;
+        width: 100%;
+    }
+}
+
+@media (max-width: 767px) {
+    .slider--markers .slick-prev, .slider--markers .slick-next {
+        top: 35px;
+    }
+
+    .slider--markers .slick-next {
+        right: 0;
+    }
+
+    .slider--markers .slick-prev {
+        left: 0;
+    }
+
+    .timeline-stamp {
+        left: -20px;
+        top: -25px;
+    }
+
+    .menu--search-form {
+        margin-top: 50px;
+    }
+
+    .home-about-workshop__button {
+        display: none;
+    }
+
+    .timeline-years {
+        display: none;
+    }
+
+    .slider--products .slide__left__content {
+        box-sizing: border-box;
+        top: auto;
+        transform: none;
+    }
+
+    .slider--timeline .slick-prev, .slider--timeline .slick-next {
+        top: -25px;
+    }
+
+    .slider--products .slide__right {
+        background-image: none !important;
+        max-width: 520px;
+        padding: 0;
+    }
+}
+
+@media (max-width: 667px) and (min-width: 481px) {
+    .slider--timeline .slide__bottom--left {
+        margin-right: 0;
+        width: 50%;
+    }
+
+    .slider--timeline .slide__bottom--right {
+        width: 50%;
+    }
+}
+
+@media (max-width: 667px) and (min-width: 520px) {
+    .slider-products-left {
+        float: left;
+        width: 50%;
+    }
+
+    .slider-products-right {
+        float: left;
+        width: 50%;
+    }
+
+    .slider--products .slide__content {
+        display: none;
+    }
+
+    .slider--products .slick-prev {
+        bottom: 0;
+        left: 33.333333%;
+        top: auto;
+    }
+
+    .slider--products .slick-next {
+        bottom: 0;
+        right: 33.333333%;
+        top: auto;
+    }
+
+    #section--luxurious-products {
+        padding-top: 75px;
+    }
+
+    .slide__right__content {
+        padding-top: 40px;
+    }
+}
+
+@media (max-width: 667px) {
+    .select2-container .select2-selection--single {
+        height: 35px;
+    }
+
+    #menu {
+        height: 100% !important;
+        overflow-y: scroll;
+    }
+
+    .menu--products {
+        margin-bottom: 35px;
+    }
+
+    #logo img {
+        margin: 0 auto;
+        max-width: 65%;
+    }
+
+    .color__image {
+        height: 200px;
+        max-height: 200px;
+    }
+
+    #section--timeline-intro {
+        padding-bottom: 75px;
+    }
+
+    .container--close {
+        padding-top: 15px;
+    }
+
+    #header--fixed #logo {
+        margin-top: -3px;
+    }
+
+    #header {
+        /*padding-bottom: 15px;*/
+        padding-top: 15px;
+    }
+
+    #header--fixed {
+        padding-bottom: 10px;
+        padding-top: 15px;
+    }
+
+    .slider--products .slide__right {
+        background-image: none !important;
+    }
+}
+
+@media (max-width: 640px) {
+    .slider--timeline .slick-prev {
+        left: 40px;
+    }
+
+    .slider--timeline .slick-next {
+        right: 40px;
+    }
+
+    .workshop__gallery {
+        margin-top: 75px;
+    }
+
+    .slider--timeline .slide__bottom {
+        text-align: center;
+    }
+
+    #search {
+        height: 100% !important;
+    }
+
+    .max-width-2 {
+        max-width: 400px;
+    }
+
+    .map__panel {
+        width: 100%;
+        padding-left: 30px;
+        padding-right: 30px;
+    }
+
+    h1,
+    .entry-title,
+    .title--big {
+        font-size: 40px;
+    }
+
+    .timeline-years__year:first-child {
+        font-size: 10px;
+    }
+
+    .timeline-years__year:last-child {
+        font-size: 10px;
+    }
+
+    .timeline-years__year {
+        font-size: 0;
+    }
+
+    .slider--timeline .slide__bottom--right {
+        width: 100%;
+    }
+
+    .home-history-column {
+        margin-bottom: 40px;
+    }
+
+    .collection__products {
+        padding-left: 0;
+    }
+
+    #about {
+        height: auto !important;
+    }
+
+    .menu--primary {
+        margin-bottom: 35px;
+    }
+
+    .container--thumbs {
+        margin-left: 25%;
+    }
+
+    .product__gallery .slick-prev {
+        bottom: 50%;
+        left: 30px;
+        margin-bottom: 40px;
+    }
+
+    .product__gallery .slick-next {
+        bottom: 50%;
+        margin-bottom: 40px;
+        right: 30px;
+    }
+
+    #footer .max-width-4 {
+        max-width: 90%;
+    }
+
+    .tease-post--small .tease-title {
+        font-size: 16px;
+    }
+
+    #popup-dialog {
+        padding: 30px;
+        position: relative;
+    }
+
+    .popup-dialog__content {
+        max-height: 50vh;
+        overflow-y: scroll;
+    }
+
+    .slider--products .slick-prev {
+        left: 0;
+    }
+
+    .slider--products .slick-next {
+        right: 0;
+    }
+
+    .product__gallery .slide__image {
+        height: 50vh;
+    }
+
+    .product__gallery .slick-slide .slide__image img {
+        max-width: none;
+        position: static;
+        transform: none;
+    }
+
+    .breadcrumbs span {
+        /*max-width: 10%;*/
+    }
+
+    .gform_fields input[type="checkbox"] + label {
+        letter-spacing: 1px;
+    }
+}
+
+@media (max-width: 480px) {
+    .slider--products .slide__left__content {
+        padding: 75px 0 40px 0;
+    }
+
+    .slider--timeline .slide__caption {
+        display: none;
+    }
+
+    .mfp-image-holder .mfp-bottom-bar {
+        display: none;
+    }
+
+    img.mfp-img {
+        padding: 80px 0 80px;
+    }
+
+    .collection__title--small:after {
+        margin-left: 0;
+        margin-top: 10px;
+    }
+
+    .collection__title--big {
+        margin-top: 20px;
+    }
+
+    .vjs-break-overlay {
+        display: none !important;
+    }
+
+    .post-image {
+        width: 100%;
+    }
+
+    .post-image img {
+        width: 100%;
+        height: auto;
+    }
+
+    .tease-post--large {
+        height: auto;
+    }
+
+    .post-content {
+        top: auto;
+        transform: none;
+        padding: 30px;
+    }
+
+    .tease-post--large .tease-title {
+        padding-left: 0;
+    }
+
+    .post-text {
+        width: 100%;
+    }
+
+    .tease-post--large .tease-image {
+        width: 100%;
+        height: auto;
+    }
+
+    .home-history-image {
+        height: 320px;
+    }
+
+    .home-history-image img {
+        height: auto;
+        margin-left: -150px;
+        max-width: none;
+        width: 300%;
+    }
+
+    .section--about-papazian__content {
+        padding-bottom: 0;
+        padding-top: 50px;
+    }
+
+    .slider--products .slide__right__content {
+        top: auto;
+        transform: none;
+    }
+
+    .slider--products .slick-slide img {
+        max-width: 50%;
+    }
+
+    #section--latest-news {
+        padding-top: 75px;
+    }
+
+    #section--timeline .max-width-1 {
+        max-width: 85%;
+    }
+
+    #section--timeline {
+        padding-top: 75px;
+    }
+
+    .slider--timeline .slide__top {
+        width: 100%;
+    }
+
+    .slider--timeline .slide__bottom {
+        width: 100%;
+    }
+
+    .slider--timeline .slide__bottom--left {
+        margin-right: 0;
+    }
+
+    .slider--products .slick-prev {
+        display: none !important;
+    }
+
+    .slider--products .slick-next {
+        display: none !important;
+    }
+
+    .breadcrumbs__left {
+        padding-bottom: 0;
+        padding-top: 50px;
+    }
+
+    .breadcrumbs {
+        display: none;
+    }
+
+    .search--toggle span {
+        font-size: 0;
+    }
+
+    .related-news {
+        padding-bottom: 75px;
+    }
+
+    .collection__content {
+        margin-bottom: 4rem;
+    }
+
+    .menu--toggle span {
+        font-size: 0;
+    }
+
+    .close {
+        font-size: 0;
+    }
+
+    .container--map-canvas {
+        display: none;
+    }
+
+    #field_2_6 {
+        margin-top: 0;
+    }
+
+    .container--map {
+        height: auto;
+        padding-bottom: 75px;
+    }
+
+    .container--page {
+        padding-bottom: 75px;
+    }
+
+    .collections-stamp {
+        display: none;
+    }
+
+    .products-stamp {
+        display: none;
+    }
+
+    .home-history-stamp {
+        display: none;
+    }
+
+    .related-products-stamp {
+        display: none;
+    }
+
+    .timeline-stamp {
+        display: none;
+    }
+
+    .button--view-info {
+        display: none;
+    }
+
+    .marker__location {
+        display: block;
+    }
+
+    h1, .entry-title, .title--big {
+        font-size: 30px;
+    }
+
+    .thumb {
+        width: 50%;
+    }
+
+    .collection__products {
+        margin-top: 75px;
+    }
+
+    .toolbar {
+        margin-bottom: 40px;
+        margin-top: 40px;
+    }
+
+    .toolbar a {
+        padding-left: 0;
+        margin: 10px !important;
+    }
+
+    .toolbar__left {
+        text-align: center;
+    }
+
+    .toolbar__right {
+        text-align: center;
+    }
+
+    #section--making-history {
+        padding-top: 75px;
+    }
+
+    #section--latest-news {
+        padding-bottom: 75px;
+    }
+
+    .search-results .container--search__results .tease-product {
+        width: 100%;
+    }
+
+    .search-results .container--search__results .tease-post {
+        width: 100%;
+    }
+
+    .container--search__results {
+        padding-bottom: 75px;
+    }
+
+    .search-random-products {
+        margin-top: 4rem;
+    }
+
+    .tease-product .tease-image img {
+        width: 100%;
+    }
+
+    .container--form {
+        padding-bottom: 75px;
+    }
+
+    .container--news {
+        padding-bottom: 75px;
+    }
+
+    .collection__links .button--dark {
+        width: 100%;
+    }
+
+    .slider--collections .slick-prev {
+        left: 0;
+        right: auto;
+        top: 20px;
+    }
+
+    .slider--collections .slick-next {
+        top: 20px;
+    }
+
+    .entry-title__links .button--dark {
+        width: 100%;
+    }
+
+    .related-products {
+        padding-bottom: 75px;
+    }
+
+    .slider--related-products .slick-prev {
+        bottom: -45px;
+        left: 0;
+    }
+
+    .slider--related-products .slick-next {
+        bottom: -45px;
+        right: 0;
+    }
+
+    .slider--timeline .slide__bottom--left {
+        height: 226px;
+        width: 226px;
+    }
+
+    .slider--timeline .slide__bottom--right {
+        width: 226px;
+    }
+
+    .slider--timeline .slide__bottom--right img {
+        height: 226px;
+    }
+
+    .slider--timeline .slide__53 {
+        font-size: 40px;
+    }
+
+    .timeline-stamp {
+        width: 50%;
+    }
+
+    .workshop-stamp {
+        width: 50%;
+    }
+
+    .map__panel {
+        padding-left: 15px;
+        padding-right: 15px;
+        height: auto;
+        padding-bottom: 30px;
+        position: static;
+    }
+
+    .map__panel .button--dark {
+        margin-left: 0;
+        margin-top: 30px;
+        position: static;
+    }
+
+    .home-about-workshop {
+        height: 225px;
+        width: 225px;
+    }
+
+    .home-about-workshop__image {
+        border: 30px solid #f3efec;
+    }
+
+    .home-about-workshop__title {
+        font-size: 40px;
+    }
+
+    .workshop__box {
+        height: 272px;
+        padding: 30px;
+        width: 272px;
+    }
+
+    .workshop-stamp {
+        right: -10px;
+    }
+
+    .max-width-4 {
+        max-width: 90%;
+    }
+
+    .form--contact .gfield.lefty {
+        float: none;
+        width: 100%;
+    }
+
+    .form--contact .gfield.righty {
+        float: none;
+        width: 100%;
+    }
+
+    .gform_fields .gfield_checkbox li {
+        width: 100%;
+    }
+
+    .material__company {
+        box-sizing: border-box;
+        width: 100%;
+    }
+
+    .home-about-workshop {
+    }
+
+    .mat__title {
+        position: static;
+    }
+
+    .container--thumbs {
+        margin-left: 0;
+    }
+
+    .menu--toggle {
+        right: 0;
+    }
+
+    .search--toggle {
+        left: 0;
+    }
+
+    .max-width-2 {
+        width: 83.33333%;
+    }
+
+    .tease-product .tease-image {
+        height: auto;
+        padding: 0 15%;
+    }
+
+    .tease-product .tease-image .vcenter {
+        top: auto;
+        transform: none;
+    }
+
+    .single-post-column-blank {
+        display: none;
+    }
+
+    .single-post-column-content {
+        width: 100%;
+    }
+
+    .philosophy {
+        /*width: 100%;*/
+    }
+
+    #container--zoom {
+        margin-top: 4rem;
+    }
+
+    .container--sitemap {
+        padding-bottom: 75px;
+    }
+
+    #section--introduction {
+        position: static;
+    }
+
+    #section--about-papazian {
+        margin-top: 0 !important;
+    }
+
+    .section--about-papazian__bg {
+        /*background-size: initial;*/
+        background-attachment: initial;
+        background-image: url("../img/about-bg-mobile.jpg") !important;
+        background-position: top center;
+    }
+}
+
+@media (max-width: 320px) {
+    .menu--products ul ul {
+        margin-top: 0;
+    }
+
+    .menu--products ul ul a {
+        padding-left: 10%;
+    }
+
+    .menu-item-has-children > a:after {
+        width: 100%;
+    }
+
+    .menu-item-has-children > a {
+        margin-bottom: 15px;
+    }
+
+    .max-width-4 {
+        max-width: 85%;
+    }
+}

@@ -1,0 +1,32 @@
+/*@import url('//cdnjs.cloudflare.com/ajax/libs/normalize/3.0.1/normalize.min.css');*/
+#wpadminbar{
+    top:auto;
+    left:auto;
+    right:0;
+    bottom:0;
+    width:auto;
+    min-width:0;
+}
+#querylist{
+    top:0 !important;
+}
+.jp-carousel-wrap{
+    overflow-y:hidden !important;
+}
+.jp-carousel-image-meta{
+    display:none !important;
+}
+.cf:before,
+.cf:after{
+    content:" ";
+    display:table;
+}
+.cf:after{
+    clear:both;
+}
+.cf{
+    *zoom:1;
+}
+.vg-container{
+    transition:all 0.2s ease;
+}

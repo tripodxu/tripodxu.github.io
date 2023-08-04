@@ -1,0 +1,35 @@
+Vue.config.delimiters = [ '${', '}' ];
+new Vue( {
+    el: '#app--search',
+    http: {
+        emulateJSON: true
+    },
+    data: {
+        s: '',
+        results: []
+    },
+    watch: {
+        s: function() {
+            if ( this.s.length ) {
+                console.log( '--- Searching...' );
+                this.fetchSearch();
+            } else {
+                this.results = [];
+            }
+        }
+    },
+    ready: function() {
+    },
+    methods: {
+        fetchSearch: function() {
+            var data = {
+                'action': 'vg_ajax_search',
+                's': this.s,
+                '_nonce': $( '#token' ).attr( 'content' )
+            };
+            this.$http.post( '/wp-admin/admin-ajax.php', data, function( results ) {
+                this.results = results;
+            } );
+        }
+    }
+} );

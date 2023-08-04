@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="193.333" height="58.946" viewBox="0 0 193.333 58.946">
+  <defs>
+    <clipPath id="clip-path">
+      <ellipse id="Ellipse_373" data-name="Ellipse 373" cx="95.166" cy="27.973" rx="95.166" ry="27.973" fill="#fff" stroke="#8a97ff" stroke-miterlimit="10" stroke-width="3"/>
+    </clipPath>
+  </defs>
+  <g id="hole-vert" transform="translate(1.5 1.5)">
+    <ellipse id="Ellipse_371" data-name="Ellipse 371" cx="95.166" cy="27.973" rx="95.166" ry="27.973" fill="#fff"/>
+    <g id="Groupe_268" data-name="Groupe 268" clip-path="url(#clip-path)">
+      <path id="Tracé_143" data-name="Tracé 143" d="M95.166,0c52.559,0,95.166,12.524,95.166,27.973S147.725,55.946,95.166,55.946,0,43.422,0,27.973,42.607,0,95.166,0Z" transform="translate(0 -15.226)" fill="#8a97ff" stroke="#8a97ff" stroke-width="3"/>
+    </g>
+    <ellipse id="Ellipse_374" data-name="Ellipse 374" cx="95.166" cy="27.973" rx="95.166" ry="27.973" fill="none" stroke="#8a97ff" stroke-miterlimit="10" stroke-width="3"/>
+  </g>
+</svg>
