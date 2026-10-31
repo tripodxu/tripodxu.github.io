@@ -1,0 +1,250 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>先跑起来，再像样：ART/RANK 的四十八天 | tripodxu的博客</title><meta name="author" content="tripodxu"><meta name="copyright" content="tripodxu"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="功能在第二周就做完了。剩下的六周买的是「不出错」，而账单主要开给两件事： 别人的接口，和自己的重构。650 次提交里，真正「加功能」的比例比想象中低得多。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="先跑起来，再像样：ART&#x2F;RANK 的四十八天">
+<meta property="og:url" content="https://logicc.top/posts/9c5640a6.html">
+<meta property="og:site_name" content="tripodxu的博客">
+<meta property="og:description" content="功能在第二周就做完了。剩下的六周买的是「不出错」，而账单主要开给两件事： 别人的接口，和自己的重构。650 次提交里，真正「加功能」的比例比想象中低得多。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://logicc.top/img/avatar.jpg">
+<meta property="article:published_time" content="2026-09-06T13:00:00.000Z">
+<meta property="article:modified_time" content="2026-10-31T06:40:03.120Z">
+<meta property="article:author" content="tripodxu">
+<meta property="article:tag" content="Cloudflare">
+<meta property="article:tag" content="前端">
+<meta property="article:tag" content="复盘">
+<meta property="article:tag" content="项目">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://logicc.top/img/avatar.jpg"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "先跑起来，再像样：ART/RANK 的四十八天",
+  "url": "https://logicc.top/posts/9c5640a6.html",
+  "image": "https://logicc.top/img/avatar.jpg",
+  "datePublished": "2026-09-06T13:00:00.000Z",
+  "dateModified": "2026-10-31T06:40:03.120Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "tripodxu",
+      "url": "https://logicc.top/tripodxu%E7%9A%84%E5%8D%9A%E5%AE%A2"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://logicc.top/posts/9c5640a6.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=5.7.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.3.1/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        const data = { value }
+
+        if (ttl != null) {
+          data.expiry = Date.now() + ttl * 86400000
+        }
+
+        localStorage.setItem(key, JSON.stringify(data))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return
+
+        try {
+          const data = JSON.parse(itemStr)
+
+          if (data.expiry && Date.now() > data.expiry) {
+            localStorage.removeItem(key)
+            return
+          }
+
+          return data.value
+        } catch {
+          localStorage.removeItem(key)
+        }
+      }
+    }
+
+    const scriptCache = new Map()
+    const cssCache = new Map()
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => {
+        if (scriptCache.has(url)) {
+          return scriptCache.get(url)
+        }
+
+        const promise = new Promise((resolve, reject) => {
+          const script = document.createElement('script')
+
+          script.src = url
+          script.async = true
+
+          for (const key in attr) {
+            script.setAttribute(key, attr[key])
+          }
+
+          script.onload = resolve
+          script.onerror = reject
+
+          document.head.appendChild(script)
+        })
+
+        scriptCache.set(url, promise)
+
+        return promise
+      },
+      getCSS: (url, id) => {
+        if (cssCache.has(url)) {
+          return cssCache.get(url)
+        }
+
+        const promise = new Promise((resolve, reject) => {
+          const link = document.createElement('link')
+
+          link.rel = 'stylesheet'
+          link.href = url
+
+          if (id) {
+            link.id = id
+          }
+
+          link.onload = resolve
+          link.onerror = reject
+
+          document.head.appendChild(link)
+        })
+
+        cssCache.set(url, promise)
+
+        return promise
+      },
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const metaThemeColor = document.querySelector('meta[name="theme-color"]')
+      const activateDarkMode = () => {
+        document.documentElement.dataset.theme = 'dark'
+        if (metaThemeColor !== null) {
+          metaThemeColor.setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.dataset.theme = 'light'
+        if (metaThemeColor !== null) {
+          metaThemeColor.setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"pagination":{"enable":false,"hitsPerPage":8},"languages":{"hits_empty":"未找到符合您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"簡"},
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":150,"languages":{"author":"作者: tripodxu","link":"链接: ","source":"来源: tripodxu的博客","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.13.0/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '先跑起来，再像样：ART/RANK 的四十八天',
+  isHighlightShrink: true,
+  isToc: true,
+  pageType: 'post'
+}</script><link rel="stylesheet" href="/css/customer.css"><script src="/js/img-fallback.js"></script><!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 8.0.0"><link rel="alternate" href="/atom.xml" title="tripodxu的博客" type="application/atom+xml">
+</head><body><script>window.paceOptions = {
+  restartOnPushState: false
+}
+
+btf.addGlobalFn('pjaxSend', () => {
+  Pace.restart()
+}, 'pace_restart')
+
+</script><link rel="stylesheet" href="/css/big-counter.css"/><script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js"></script><div class="bg-animation" id="web_bg" style="background-color: #f4f6f9;"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/img/avatar.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">61</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">23</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">18</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives"><span> 文章</span></a></div><div class="menus_item"><a class="site-page" href="/tags"><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories"><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/toys"><span> 小玩意</span></a></div><div class="menus_item"><a class="site-page" href="/skills"><span> Skills</span></a></div><div class="menus_item"><a class="site-page" href="/about"><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(/img/background.webp);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">tripodxu的博客</span></a><a class="nav-page-title" href="/"><span class="site-name">先跑起来，再像样：ART/RANK 的四十八天</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives"><span> 文章</span></a></div><div class="menus_item"><a class="site-page" href="/tags"><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories"><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/toys"><span> 小玩意</span></a></div><div class="menus_item"><a class="site-page" href="/skills"><span> Skills</span></a></div><div class="menus_item"><a class="site-page" href="/about"><span> 关于</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">先跑起来，再像样：ART/RANK 的四十八天</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2026-09-06T13:00:00.000Z" title="发表于 2026-09-06 21:00:00">2026-09-06</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2026-10-31T06:40:03.120Z" title="更新于 2026-10-31 14:40:03">2026-10-31</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E9%A1%B9%E7%9B%AE/">项目</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">总字数:</span><span class="word-count">1.3k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>3分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><p>先给结论：**这个项目的功能在第二周就做完了。**之后六周的工作不是让它更好，是让它不出错——而「不出错」的钱主要花在两个地方：别人家的接口，和自己刚做完的重构。</p>
+<p>650 次提交、约四万行 TS&#x2F;TSX、28 个数据库迁移、12 套主题。这个比例值得记下来。</p>
+<span id="more"></span>
+
+<h2 id="一、头三天：全在修别人的接口"><a href="#一、头三天：全在修别人的接口" class="headerlink" title="一、头三天：全在修别人的接口"></a>一、头三天：全在修别人的接口</h2><p>09-07 一天推了 28 次，几乎没有一次是加功能：</p>
+<ul>
+<li>海报 502，得加缓存和重试；</li>
+<li>搜索结果里评分显示成 <code>[object Object]</code>——接口返回的是对象不是数字；</li>
+<li>管理端鉴权查询报错，因为 D1 的 <code>.first()</code> 前面少了 <code>.bind()</code>。</li>
+</ul>
+<p>09-08 详情接口被挡，于是加「详情抓不到就回落搜索」的双路；回落之后冒出新问题：搜索结果里有同名不同作，只好再用 <code>subject ID</code> 过滤一遍。</p>
+<p>09-09 撞上一个很典型的坑：搜索关键词不能用 <code>+前缀</code>，因为 <code>URLSearchParams</code> 会把 <code>+</code> 编码成 <code>%2B</code>，对面完全不认。同一天把分享从「把整份榜单 base64 塞进 URL」改成短链——base64 版本的链接长到发不出去。</p>
+<p>这段经历给出第一个可推广的判断：<strong>依赖外部接口的项目，前期成本与对方接口的整洁程度成正比，与自己的设计水平关系不大。</strong></p>
+<h2 id="二、抽象不是免费的"><a href="#二、抽象不是免费的" class="headerlink" title="二、抽象不是免费的"></a>二、抽象不是免费的</h2><p>09-14 开始拆 <code>App.tsx</code>：先抽工具函数与路由 Hook（-73 行），再抽 <code>useAuth</code>（-149 行），再抽 <code>useSorting</code>（-185 行）。</p>
+<p>09-16 还债：三处回归——草稿无限写循环、自动同步无限 PUT、登出保存竞态。</p>
+<p>三个回归有一个共同点：<strong>它们都发生在「原本隐式绑在一起的两件事被拆开之后」</strong>。写循环是因为草稿的读与写原本共享同一个生命周期；无限 PUT 是因为同步的触发时机原本附着在渲染上；登出竞态是因为保存与身份切换原本在同一条同步路径里。</p>
+<p>拆 Hook 减少了 407 行，也把三条隐式契约变成了显式契约——而显式契约写错了，编译器不会告诉你。</p>
+<h2 id="三、把出站请求收进一个口"><a href="#三、把出站请求收进一个口" class="headerlink" title="三、把出站请求收进一个口"></a>三、把出站请求收进一个口</h2><p>09-25 把全部出站请求收进 <code>fetchBounded</code>：精确 host 白名单、<code>redirect: manual</code> 逐跳复核、响应字节上限。</p>
+<p>这是防 SSRF 的唯一入口，也是后来最省心的一层。理由不复杂：<strong>安全控制的强度取决于它有几个入口</strong>。有十个地方各自 <code>fetch</code>，就有十个地方要各自记得加白名单；有一个口，就只有一处会漏。</p>
+<p>09-27 的全量审计清掉 3 high &#x2F; 4 medium &#x2F; 4 low。这些数量本身说明一件事：安全债是均匀分布的，不会因为你「平时小心」就少。</p>
+<h2 id="四、两次「延后写入」的账单"><a href="#四、两次「延后写入」的账单" class="headerlink" title="四、两次「延后写入」的账单"></a>四、两次「延后写入」的账单</h2><p>10-14 把草稿落盘改成 500ms 防抖，撤销快照上限 50，顺手给 12 处弹窗接上 FocusTrap。</p>
+<p>10-17 就还债了：防抖之后切页必须 flush，否则最后一次改动直接丢——这是个 P0。</p>
+<p>同构的问题在这个项目里出现过两次（另一处在雅思刷词工具里，也是微任务排队写入导致关页丢数据）。两次的修法都一样：<strong>给「延后」配一个「不能再延后」的出口</strong>，绑在页面生命周期与身份切换上，而不是绑在用户的耐心上。</p>
+<h2 id="五、只有-runtime-才会给的教训"><a href="#五、只有-runtime-才会给的教训" class="headerlink" title="五、只有 runtime 才会给的教训"></a>五、只有 runtime 才会给的教训</h2><p>10-25 的安全审计里有一条只在 workerd 上出现：想在模块顶层生成随机哑盐，部署直接报 10021——<strong>workerd 禁止在全局作用域调用 <code>getRandomValues</code></strong>。</p>
+<p>最后改成固定零盐，因为它本来只用于对齐时序，不承担安全职责。</p>
+<p>这类错误的特征是：本地跑得通、构建通过、类型检查干净，只有真正部署到目标 runtime 才暴露。它支持一条写进仓库的铁律——<strong>未到线上实机验证不标完成</strong>。CDN 边缘拿到的可能是上一版，本地全绿不算数。</p>
+<h2 id="代价与局限"><a href="#代价与局限" class="headerlink" title="代价与局限"></a>代价与局限</h2><p>**650 次提交里，无法区分「必要」与「返工」。**拆 Hook 减了 407 行、引入 3 处回归，这是一次可量化的交换；但更多提交是「发现接口变了 → 改解析器」这类被动响应，它们既不产出功能，也不产出结构改进。用提交数衡量进度在这里会严重失真。</p>
+<p><strong>回归数量不可外推。</strong>「拆 Hook 引入三处回归」是一个项目的观察，不是一条规律。它只能说明抽象有代价，不能说明代价有多大。</p>
+<p><strong>审计结论有时效。</strong> 3 high &#x2F; 4 medium &#x2F; 4 low 是 09-27 那一刻的状态，之后每加一个接口，这个数字都可能回升。安全审计不是一次事件，是一个周期。</p>
+<p>线上：<a target="_blank" rel="noopener" href="https://sort.logicc.top/">https://sort.logicc.top</a></p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="tripodxu的博客">tripodxu</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://logicc.top/posts/9c5640a6.html">https://logicc.top/posts/9c5640a6.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://logicc.top" target="_blank">tripodxu的博客</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E9%A1%B9%E7%9B%AE/">项目</a><a class="post-meta__tags" href="/tags/%E5%A4%8D%E7%9B%98/">复盘</a><a class="post-meta__tags" href="/tags/Cloudflare/">Cloudflare</a><a class="post-meta__tags" href="/tags/%E5%89%8D%E7%AB%AF/">前端</a></div><div class="post-share"><div class="social-share" data-image="/img/avatar.jpg" data-sites="facebook,x,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/posts/bb926a11.html" title="九次改版：一个雅思刷词工具的四十二天"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">九次改版：一个雅思刷词工具的四十二天</div></div><div class="info-2"><div class="info-item-1">背单词工具的核心不是题目，是记忆本身。而记忆类应用的正确性几乎不由「写入」决定， 由「删除」和「换账号」决定——这两件事错了不会报错，只会让用户的数据悄悄复活或串号。</div></div></div></a><a class="pagination-related" href="/posts/c8583162.html" title="一份转载"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">一份转载</div></div><div class="info-2"><div class="info-item-1">昨天读到了孟浩然的一句诗：‘遑遑三十载，书剑两无成‘。一瞬间我忽然有了一种错乱感。别说三十岁，研究生毕业多年的我至今都还记得第一次知道初中生这个概念时的震撼。那时候小学一年级的我根本不敢想象四年级以上的高年级学生是什么样的存在。至于初中生那更是另一个位面的神祇，他们战斗起来连日月都会变色，星辰都会颤抖，作为低年级小学生的我仅仅看一眼就会被波及到神魂俱灭。据说再往上还有高中生和什么大学生，但因为距离太遥远了，反而没有初中生那种震撼感。在我的世界里初中生就是世界的统治者。…但初中生尚且属于人类的范畴，他们虽然无比强大，但终究还是与我是同一个物种。他们虽然有我不理解的行为，比如写情书。有让我佩服的行为，比如翘课。但他们也会和我一起看火影忍者，一起玩造梦西游和赛尔号，甚至有个别不入流的家伙甚至会将我当作一个平等的对手来一把拳皇。最重要的是我们有一个共同的对手———大人。与对初中生包含着嫉妒和向往的复杂感情不同，我对大人相当之仇恨。他们会因为我数学不及格骂我，汉字认不全揍我，和老师串通一气针对我，还总是在我打boss到关键时刻拔我网线。总而言之，初中生是可以争取的阶级盟友，大人是有结构性矛...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/posts/820b2ade.html" title="上线第一周都在修 CI：一间临时邮局的两个月"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-09-19</div><div class="info-item-2">上线第一周都在修 CI：一间临时邮局的两个月</div></div><div class="info-2"><div class="info-item-1">临时邮箱的用户只给三十秒耐心：建箱、收信、拿验证码、关掉。这决定了它的工程价值几乎不落在功能上， 而落在两件别的事——错误有没有被看见，权限有没有越界。</div></div></div></a><a class="pagination-related" href="/posts/16bb7f87.html" title="让一万个人格读同一段话"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-09-28</div><div class="info-item-2">让一万个人格读同一段话</div></div><div class="info-2"><div class="info-item-1">Jevtown 中文小镇的 146 次提交按时间重排：第一天跑通 mock，第二天补原子性，上线当天砍掉自己的兜底，一周后撞上 429，最后把「这次反应是成片还是零散」做成了功能。</div></div></div></a><a class="pagination-related" href="/posts/e2b6bfa3.html" title="一架钢琴的七十三次调音：实时生成系统的时限约束与承诺缺口"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-09-28</div><div class="info-item-2">一架钢琴的七十三次调音：实时生成系统的时限约束与承诺缺口</div></div><div class="info-2"><div class="info-item-1">本文以一个实时即兴钢琴系统为对象（123 次提交、73 个编号迭代轮次、267 项单测），考察生成模型接入 实时系统后失效发生在何处、改进应当投向何处。结果显示：首次致命失效的成因是时限缺失而非音质 （决策最坏约 17 s，音频缓冲约 3.4 s）；受限的模型接口契约会摧毁连续量，须在渲染层重新解释； 而系统里反复出现的缺陷类型是「承诺—实现缺口」——签名、文档、调用方、测试齐备，只有实现不在。</div></div></div></a><a class="pagination-related" href="/posts/4aa2c2a.html" title="廉价判断与确定性知识：一个五子棋系统的接管架构及其边界"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-09-28</div><div class="info-item-2">廉价判断与确定性知识：一个五子棋系统的接管架构及其边界</div></div><div class="info-2"><div class="info-item-1">本文把一个已运行一个月的五子棋系统当作自然实验，考察「廉价判断模型 + 手写确定性规则」这一组合中， 能力增量究竟来自哪一层。结果显示知识层主导了 65%–76% 的决策并贡献了主要棋力增量， 而提高判断层自主权在 120 局配对样本下未产生可检出效应。</div></div></div></a><a class="pagination-related" href="/posts/bb926a11.html" title="九次改版：一个雅思刷词工具的四十二天"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-09-16</div><div class="info-item-2">九次改版：一个雅思刷词工具的四十二天</div></div><div class="info-2"><div class="info-item-1">背单词工具的核心不是题目，是记忆本身。而记忆类应用的正确性几乎不由「写入」决定， 由「删除」和「换账号」决定——这两件事错了不会报错，只会让用户的数据悄悄复活或串号。</div></div></div></a></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/avatar.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">tripodxu</div><div class="author-info-description">分享知识和生活感悟</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">61</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">23</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">18</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/tripodxu"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/tripodxu" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="mailto:xd04040212@163.com" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">考研笔记（数学 / 408）在持续整理，右侧分类可直接跳。<br>做过的几个小东西收在「小玩意」里，都能点开玩。</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E5%A4%B4%E4%B8%89%E5%A4%A9%EF%BC%9A%E5%85%A8%E5%9C%A8%E4%BF%AE%E5%88%AB%E4%BA%BA%E7%9A%84%E6%8E%A5%E5%8F%A3"><span class="toc-number">1.</span> <span class="toc-text">一、头三天：全在修别人的接口</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E6%8A%BD%E8%B1%A1%E4%B8%8D%E6%98%AF%E5%85%8D%E8%B4%B9%E7%9A%84"><span class="toc-number">2.</span> <span class="toc-text">二、抽象不是免费的</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89%E3%80%81%E6%8A%8A%E5%87%BA%E7%AB%99%E8%AF%B7%E6%B1%82%E6%94%B6%E8%BF%9B%E4%B8%80%E4%B8%AA%E5%8F%A3"><span class="toc-number">3.</span> <span class="toc-text">三、把出站请求收进一个口</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%9B%E3%80%81%E4%B8%A4%E6%AC%A1%E3%80%8C%E5%BB%B6%E5%90%8E%E5%86%99%E5%85%A5%E3%80%8D%E7%9A%84%E8%B4%A6%E5%8D%95"><span class="toc-number">4.</span> <span class="toc-text">四、两次「延后写入」的账单</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%94%E3%80%81%E5%8F%AA%E6%9C%89-runtime-%E6%89%8D%E4%BC%9A%E7%BB%99%E7%9A%84%E6%95%99%E8%AE%AD"><span class="toc-number">5.</span> <span class="toc-text">五、只有 runtime 才会给的教训</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%A3%E4%BB%B7%E4%B8%8E%E5%B1%80%E9%99%90"><span class="toc-number">6.</span> <span class="toc-text">代价与局限</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/posts/16bb7f87.html" title="让一万个人格读同一段话">让一万个人格读同一段话</a><time datetime="2026-09-28T14:00:00.000Z" title="发表于 2026-09-28 22:00:00">2026-09-28</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/posts/e2b6bfa3.html" title="一架钢琴的七十三次调音：实时生成系统的时限约束与承诺缺口">一架钢琴的七十三次调音：实时生成系统的时限约束与承诺缺口</a><time datetime="2026-09-28T13:00:00.000Z" title="发表于 2026-09-28 21:00:00">2026-09-28</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/posts/4aa2c2a.html" title="廉价判断与确定性知识：一个五子棋系统的接管架构及其边界">廉价判断与确定性知识：一个五子棋系统的接管架构及其边界</a><time datetime="2026-09-28T12:00:00.000Z" title="发表于 2026-09-28 20:00:00">2026-09-28</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/posts/beb2f34c.html" title="大模型 9.26最实惠的方案">大模型 9.26最实惠的方案</a><time datetime="2026-09-25T15:40:00.000Z" title="发表于 2026-09-25 23:40:00">2026-09-25</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/posts/820b2ade.html" title="上线第一周都在修 CI：一间临时邮局的两个月">上线第一周都在修 CI：一间临时邮局的两个月</a><time datetime="2026-09-19T13:00:00.000Z" title="发表于 2026-09-19 21:00:00">2026-09-19</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url(/img/background.webp);"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2025 - 2026 By tripodxu</span><span class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 8.0.0</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.7.0</a></span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="translateLink" type="button" title="简繁转换">繁</button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=5.7.0"></script><script src="/js/main.js?v=5.7.0"></script><script src="/js/tw_cn.js?v=5.7.0"></script><div class="js-pjax"></div><div class="footer-running-time" style="text-align:center;padding:6px 0 2px;font-size:13px;color:#8b949c;">本站已运行：<span id="running-time">0 天 0 小时 0 分钟 0 秒</span></div><script>(function(){var s=new Date("2025-10-20T00:00:00");function u(){var n=new Date(),d=Math.floor((n-s)/1e3),D=Math.floor(d/86400);d-=D*86400;var H=Math.floor(d/3600)%24;d-=H*3600;var M=Math.floor(d/60)%60,S=d%60;var el=document.getElementById("running-time");if(el)el.innerText=D+" 天 "+H+" 小时 "+M+" 分钟 "+S+" 秒"}document.addEventListener("DOMContentLoaded",function(){u();setInterval(u,1e3)});})();</script><script>setTimeout(function(){var ns=document.querySelectorAll("[id^=busuanzi_value_]");for(var i=0;i<ns.length;i++){var el=ns[i];if(el.querySelector(".fa-spinner")||!el.textContent.trim()){var box=el.closest(".post-meta-data")||el.parentElement;if(box)box.style.display="none"}}},6000);</script><audio id="background-music" src="https://cdn.jsdelivr.net/gh/tripodxu/blog-picture-source@main/1.mp3" loop preload="none" style="display: none;"></audio><div id="music-control" style="position: fixed; bottom: 80px; right: 20px; z-index: 999; cursor: pointer; background: rgba(73, 177, 245, 0.8); color: white; width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 20px; box-shadow: 0 2px 10px rgba(0,0,0,0.2); transition: all 0.3s;" onclick="toggleMusic()">🎵</div><script>var musicPlaying = false; var audio = null; function toggleMusic() { if (!audio) { audio = document.getElementById("background-music"); if (audio) { audio.volume = 0.5; } } if (audio) { if (musicPlaying) { audio.pause(); musicPlaying = false; document.getElementById("music-control").innerHTML = "🎵"; } else { audio.play().then(function() { musicPlaying = true; document.getElementById("music-control").innerHTML = "⏸️"; }).catch(function(err) { console.log("Play failed:", err); alert("请点击页面任意位置后再试"); }); } } } document.addEventListener("DOMContentLoaded", function() { audio = document.getElementById("background-music"); if (audio) { audio.volume = 0.5; } });</script><script id="canvas_nest" defer="defer" color="0,0,255" opacity="0.7" zIndex="-1" count="99" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/dist/canvas-nest.min.js"></script><script id="click-show-text" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/dist/click-show-text.min.js" data-mobile="false" data-text="I,LOVE,DEAD,GOD,(╯°□°）╯,¯\_(ツ)_/¯,( ͡° ͜ʖ ͡°),ಠ_ಠ,¯\_(シ)_/¯,ʕ•ᴥ•ʔ,ಠ╭╮ಠ,(◉_◉),¯\_(ಠ_ಠ)_/¯,(⊙_⊙),(&gt;_&lt;),(¬‿¬),(☉_☉),(ಥ_ಥ),(☉д⊙),0x4F!3A,E7@AC:D1#,\\x1$B[31&amp;m,sudo rm% -f,404_D$EAD,NUL:0x^00,hash#FA@1C,ptr=0x$BAD,ssh 1&amp;337,ini*t 6,└─$ /dev/nu&gt;ll,SIGKIL@L-9,0day_7#R4P,hex DEA?DBEEF,rm -rf /#,NOP s&lt;led,jmp *%e&amp;ax,__stac&amp;k_chk,base64 -@d,EOF:4!18" data-fontsize="15px" data-random="true" async="async"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><i class="fas fa-spinner fa-pulse" id="loading-status" hidden="hidden"></i><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据加载中</span></div><div class="local-search-input"><input placeholder="搜点什么，比如 极限、VCF、Cloudflare" type="text"/></div><hr/><div id="local-search-results"></div><div class="ais-Pagination" id="local-search-pagination" style="display:none;"><ul class="ais-Pagination-list"></ul></div><div id="local-search-stats"></div></div><div id="search-mask"></div><script src="/js/search/local-search.js?v=5.7.0"></script></div></div></body></html>

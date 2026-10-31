@@ -1,59 +1,78 @@
+/* ==========================================================================
+   站点自定义样式（在主题样式之后加载）
+   ========================================================================== */
+
+/* 页脚运行时间 */
 .footer-running-time {
-  text-align: right;       
-}
-
-/* .footer-running-time {
-  font-size: 18px;
-  font-weight: bold;
   text-align: center;
-  margin: 15px 0;
-  padding: 12px 18px;
-  border-radius: 10px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-  background: linear-gradient(90deg, #ffc0fa, #f375f3);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 12px;
-  flex-wrap: wrap;
-  transition: all 0.3s ease;
-  position: relative;
+  padding: 6px 0 2px;
+  font-size: 13px;
+  color: #8b949c;
 }
 
-.footer-running-time::before {
+/* 打字机副标题的兜底。
+   typed.js 走外部 CDN，脚本被拦或加载失败时 #subtitle 会一直空着，
+   首屏就只剩一张图和标题。这里用纯 CSS 补一句话，只在真的空着时出现。 */
+#subtitle:empty::after {
+  content: '记录知识与生活';
+  opacity: .92;
+}
+
+/* 移动端：正文左右留白略收，避免长公式和表格被挤出屏幕 */
+@media screen and (max-width: 768px) {
+  #article-container {
+    padding-left: .2rem;
+    padding-right: .2rem;
+  }
+}
+
+/* 正文图片统一圆角，边缘不那么生硬 */
+#article-container img {
+  border-radius: 6px;
+}
+
+/* 首页 banner 底部渐隐到页面底色。
+   首页图是从中间裁的，「山坡」会在 62vh 处被切一条硬边，加一层渐变过渡掉。
+   颜色用变量，暗色模式下自动跟着变。
+   只对首页（.full_page）生效：文章页标题就在 banner 底部，渐变会把白字冲淡。 */
+#page-header.full_page::after {
   content: '';
   position: absolute;
-  top: 0;
   left: 0;
-  width: 100%;
-  height: 100%;
-  background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 1px, transparent 1px);
-  background-size: 4px 4px;
-  opacity: 0.3;
-  z-index: 0;
+  right: 0;
+  bottom: -1px;
+  height: 72px;
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, var(--global-bg) 92%);
   pointer-events: none;
-}
-
-.footer-running-time i.fas.fa-hourglass {
-  font-size: 20px;
-  margin-right: 6px;
-  color: #ffffff;
-  background: #ffc0cb;
-  border-radius: 50%;
-  padding: 8px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
-  animation: bounce 1.2s infinite;
   z-index: 1;
 }
 
-@keyframes bounce {
-  0%, 100% {
-    transform: translateY(0) scale(1);
-  }
-  50% {
-    transform: translateY(-6px) scale(1.05);
-  }
-} */
+/* 文章页标题压在图上，遇到亮色区域（比如这站的草坡）白字会糊掉：
+   banner 下半部压一层深色渐变，元信息本身再加一层阴影 */
+#page-header.post-bg::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 62%;
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, .28) 55%, rgba(0, 0, 0, .5) 100%);
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* 渐变层要压在标题下面，否则会盖住文字 */
+#page-header.post-bg #post-info {
+  z-index: 2;
+}
+
+#page-header #site-title,
+#page-header #site-subtitle,
+#page-header .title {
+  text-shadow: 0 1px 8px rgba(0, 0, 0, .45);
+}
+
+#page-header #post-info {
+  text-shadow: 0 1px 3px rgba(0, 0, 0, .9), 0 0 12px rgba(0, 0, 0, .6);
+}
 

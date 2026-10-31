@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+
+# 搜索结果页、标签归档这类重复页不必反复抓
+Disallow: /page/
+
+Sitemap: https://logicc.top/sitemap.xml

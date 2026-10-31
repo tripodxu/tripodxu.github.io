@@ -1,0 +1,250 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>上线第一周都在修 CI：一间临时邮局的两个月 | tripodxu的博客</title><meta name="author" content="tripodxu"><meta name="copyright" content="tripodxu"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="临时邮箱的用户只给三十秒耐心：建箱、收信、拿验证码、关掉。这决定了它的工程价值几乎不落在功能上， 而落在两件别的事——错误有没有被看见，权限有没有越界。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="上线第一周都在修 CI：一间临时邮局的两个月">
+<meta property="og:url" content="https://logicc.top/posts/820b2ade.html">
+<meta property="og:site_name" content="tripodxu的博客">
+<meta property="og:description" content="临时邮箱的用户只给三十秒耐心：建箱、收信、拿验证码、关掉。这决定了它的工程价值几乎不落在功能上， 而落在两件别的事——错误有没有被看见，权限有没有越界。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://logicc.top/img/avatar.jpg">
+<meta property="article:published_time" content="2026-09-19T13:00:00.000Z">
+<meta property="article:modified_time" content="2026-10-31T06:40:03.116Z">
+<meta property="article:author" content="tripodxu">
+<meta property="article:tag" content="Cloudflare">
+<meta property="article:tag" content="复盘">
+<meta property="article:tag" content="安全">
+<meta property="article:tag" content="项目">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://logicc.top/img/avatar.jpg"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "上线第一周都在修 CI：一间临时邮局的两个月",
+  "url": "https://logicc.top/posts/820b2ade.html",
+  "image": "https://logicc.top/img/avatar.jpg",
+  "datePublished": "2026-09-19T13:00:00.000Z",
+  "dateModified": "2026-10-31T06:40:03.116Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "tripodxu",
+      "url": "https://logicc.top/tripodxu%E7%9A%84%E5%8D%9A%E5%AE%A2"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://logicc.top/posts/820b2ade.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=5.7.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.3.1/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        const data = { value }
+
+        if (ttl != null) {
+          data.expiry = Date.now() + ttl * 86400000
+        }
+
+        localStorage.setItem(key, JSON.stringify(data))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return
+
+        try {
+          const data = JSON.parse(itemStr)
+
+          if (data.expiry && Date.now() > data.expiry) {
+            localStorage.removeItem(key)
+            return
+          }
+
+          return data.value
+        } catch {
+          localStorage.removeItem(key)
+        }
+      }
+    }
+
+    const scriptCache = new Map()
+    const cssCache = new Map()
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => {
+        if (scriptCache.has(url)) {
+          return scriptCache.get(url)
+        }
+
+        const promise = new Promise((resolve, reject) => {
+          const script = document.createElement('script')
+
+          script.src = url
+          script.async = true
+
+          for (const key in attr) {
+            script.setAttribute(key, attr[key])
+          }
+
+          script.onload = resolve
+          script.onerror = reject
+
+          document.head.appendChild(script)
+        })
+
+        scriptCache.set(url, promise)
+
+        return promise
+      },
+      getCSS: (url, id) => {
+        if (cssCache.has(url)) {
+          return cssCache.get(url)
+        }
+
+        const promise = new Promise((resolve, reject) => {
+          const link = document.createElement('link')
+
+          link.rel = 'stylesheet'
+          link.href = url
+
+          if (id) {
+            link.id = id
+          }
+
+          link.onload = resolve
+          link.onerror = reject
+
+          document.head.appendChild(link)
+        })
+
+        cssCache.set(url, promise)
+
+        return promise
+      },
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const metaThemeColor = document.querySelector('meta[name="theme-color"]')
+      const activateDarkMode = () => {
+        document.documentElement.dataset.theme = 'dark'
+        if (metaThemeColor !== null) {
+          metaThemeColor.setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.dataset.theme = 'light'
+        if (metaThemeColor !== null) {
+          metaThemeColor.setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"pagination":{"enable":false,"hitsPerPage":8},"languages":{"hits_empty":"未找到符合您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"簡"},
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":150,"languages":{"author":"作者: tripodxu","link":"链接: ","source":"来源: tripodxu的博客","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.13.0/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '上线第一周都在修 CI：一间临时邮局的两个月',
+  isHighlightShrink: true,
+  isToc: true,
+  pageType: 'post'
+}</script><link rel="stylesheet" href="/css/customer.css"><script src="/js/img-fallback.js"></script><!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 8.0.0"><link rel="alternate" href="/atom.xml" title="tripodxu的博客" type="application/atom+xml">
+</head><body><script>window.paceOptions = {
+  restartOnPushState: false
+}
+
+btf.addGlobalFn('pjaxSend', () => {
+  Pace.restart()
+}, 'pace_restart')
+
+</script><link rel="stylesheet" href="/css/big-counter.css"/><script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js"></script><div class="bg-animation" id="web_bg" style="background-color: #f4f6f9;"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/img/avatar.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">61</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">23</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">18</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives"><span> 文章</span></a></div><div class="menus_item"><a class="site-page" href="/tags"><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories"><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/toys"><span> 小玩意</span></a></div><div class="menus_item"><a class="site-page" href="/skills"><span> Skills</span></a></div><div class="menus_item"><a class="site-page" href="/about"><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(/img/background.webp);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">tripodxu的博客</span></a><a class="nav-page-title" href="/"><span class="site-name">上线第一周都在修 CI：一间临时邮局的两个月</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives"><span> 文章</span></a></div><div class="menus_item"><a class="site-page" href="/tags"><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories"><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/toys"><span> 小玩意</span></a></div><div class="menus_item"><a class="site-page" href="/skills"><span> Skills</span></a></div><div class="menus_item"><a class="site-page" href="/about"><span> 关于</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">上线第一周都在修 CI：一间临时邮局的两个月</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2026-09-19T13:00:00.000Z" title="发表于 2026-09-19 21:00:00">2026-09-19</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2026-10-31T06:40:03.116Z" title="更新于 2026-10-31 14:40:03">2026-10-31</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E9%A1%B9%E7%9B%AE/">项目</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">总字数:</span><span class="word-count">1.3k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>4分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><p>先给结论：**在一个只有三十秒耐心的产品里，工程价值几乎不体现在功能上。**它体现在两件事：用户有没有看见那个错误，以及一个人的凭据能不能碰到另一个人的东西。</p>
+<p>这个临时邮箱 143 次提交，真正算「加功能」的不到一成。剩下的都在这两件事上。</p>
+<span id="more"></span>
+
+<h2 id="一、第一天不写业务，只修发布"><a href="#一、第一天不写业务，只修发布" class="headerlink" title="一、第一天不写业务，只修发布"></a>一、第一天不写业务，只修发布</h2><p>开工第一天 11 次提交，几乎没有一行业务代码，全在跟 CI 较劲：Pages 部署必挂、参数传递不对；怀疑 Token 权限，加 <code>wrangler whoami</code> 身份探针；还是 “No access”，再加一层权限诊断。</p>
+<p>这类活很没成就感，但它决定后面两个月敢不敢直接推 main。<strong>发布链路不通的时候，所有「快速迭代」的说法都是假的</strong>——你只是把验证成本从 CI 挪到了自己身上。</p>
+<p>第二天的决定更能说明这个项目的取舍：发信功能按文档启用了，新地址默认 20 条余额，当天又关掉。理由是发信是开放中继的风险面，收信才是产品核心——先把危险的部分关掉。</p>
+<h2 id="二、一天-44-次提交，全是「让它别出错」"><a href="#二、一天-44-次提交，全是「让它别出错」" class="headerlink" title="二、一天 44 次提交，全是「让它别出错」"></a>二、一天 44 次提交，全是「让它别出错」</h2><p>09-22 是转折点，44 次提交没有一次是加功能：</p>
+<ul>
+<li>流水线异常隔离：一封坏信不能拖垮整批；</li>
+<li>Message-ID 去重（没有它，同一封信会在列表里反复出现）；</li>
+<li>错误消息脱敏；</li>
+<li>三处搜索调用点统一成一个 <code>buildMailSearchPattern</code>，长度限制收口——之前三处各写各的，限制都不一样。</li>
+</ul>
+<p>最值得记的是匿名额度的口径。原来是按出口 IP 计数，结果用户换个网络额度就重置了，而同一个出口的多个人又能互相蹭。改成「指纹优先 + D1 计数优先」之后，这两种漂移才被同时堵住。</p>
+<p><strong>额度算错和额度被绕开，是两个不同的问题，用同一个计数器解决不了。</strong></p>
+<h2 id="三、两个静默失效"><a href="#三、两个静默失效" class="headerlink" title="三、两个静默失效"></a>三、两个静默失效</h2><p>这个项目最贵的 bug 都不报错。</p>
+<p><strong>其一，错误弹窗被弹窗自己盖住。</strong> 用户实测反馈「点了没反应」。查下来 <code>.toast</code> 的 <code>z-index: 1001</code> 小于 <code>.modal-veil</code> 的 <code>1002</code>——错误其实弹了，全程被遮罩压着。代码没错，逻辑没错，用户就是看不见。</p>
+<p><strong>其二，补丁只写了一半。</strong> 有一条提交信息是「补上 <code>pruneDeadMailboxes</code> 函数定义（上次 patch 写回前中断导致只有调用没有定义）」。代码能通过 lint，运行时才炸。</p>
+<p>这两件事指向同一个结论：**门禁通过不等于功能生效。**前者需要的是「错误必须可见」这类产品级约束，后者需要的是「写入必须原子」这类工具级约束，两者都不是加测试能自动获得的。</p>
+<h2 id="四、上游把两种失败返回成同一个状态码"><a href="#四、上游把两种失败返回成同一个状态码" class="headerlink" title="四、上游把两种失败返回成同一个状态码"></a>四、上游把两种失败返回成同一个状态码</h2><p>09-26 是最难的一天。上游把「会话的人机验证过期」和「创建频率超限」都返回 403 <code>need_turnstile</code>。而本地的处理逻辑是：读路径遇到 428 会退休会话，创建路径却一律把它放回 free 池。结果是死会话永生——每次建箱都认领它，再 403，再被报成「限流」。</p>
+<p>第一版判据是「看 bootstrap 是否成功」：页面能开但创建被拒 &#x3D; 真限流；连引导页都拒 &#x3D; 会话已死。这个判据错了，因为真上游的首页<strong>无论会话死活都返回 200</strong>，探针永远触发不了。</p>
+<p>第二次才根治，方案是两个与 provider 无关的信号：create 403 连续计数（3 次且跨越 120 秒才退休），加 cron 每 5 分钟对 free 会话做 inbox 探活。</p>
+<p>教训不在具体判据，在判据的来源：<strong>凡是拿「上游的某个页面能不能打开」当健康信号，就等于把判据外包给了一个不承诺语义的接口。</strong></p>
+<h2 id="五、越权是一个动作，不是一个漏洞"><a href="#五、越权是一个动作，不是一个漏洞" class="headerlink" title="五、越权是一个动作，不是一个漏洞"></a>五、越权是一个动作，不是一个漏洞</h2><p>09-23 到 09-25 做的是权限语义的收口：<code>api_keys.scope</code> 分家（v1 与 v2 密钥互拒）；<code>/v1</code> 的 mailbox token 增加 API key 归属校验——之前 A 的 key 能访问 B 的邮箱；凭据恢复改成一次性 token（<code>tmr1</code>），短期有效、用一次即废。</p>
+<p>这类问题的共性是：<strong>权限系统里，「能查到」和「该查到」是两个判断，而代码通常只实现了前者。</strong></p>
+<h2 id="代价与局限"><a href="#代价与局限" class="headerlink" title="代价与局限"></a>代价与局限</h2><p><strong>发信功能被砍掉了，而且没有回来的时间表。</strong> 这是主动放弃：开放中继的风险面大于它带来的功能价值。代价是这个产品永远只能收、不能回。</p>
+<p><strong>安全审计拖到了一个月后。</strong> 09-27 之后停了一个月，10-24 回来一口气 19 个提交补安全与并发：webhook 常量时间比较、<code>/v1</code> 幂等重放、<code>/v2</code> 的 <code>cred_version</code> CAS、发信显示名的 CRLF 剥离。这些本该在功能上线前做——它们是欠账，不是迭代。</p>
+<p><strong>「少做功能」与「没出事故」之间没有因果证据。</strong> 143 次提交里功能确实少，事故也确实少，但这是选择的结果还是运气，本文给不出答案：样本只有一个产品，也没有对照。</p>
+<p>线上：<a target="_blank" rel="noopener" href="https://mails.logicc.top/">https://mails.logicc.top</a></p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="tripodxu的博客">tripodxu</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://logicc.top/posts/820b2ade.html">https://logicc.top/posts/820b2ade.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://logicc.top" target="_blank">tripodxu的博客</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E9%A1%B9%E7%9B%AE/">项目</a><a class="post-meta__tags" href="/tags/%E5%A4%8D%E7%9B%98/">复盘</a><a class="post-meta__tags" href="/tags/Cloudflare/">Cloudflare</a><a class="post-meta__tags" href="/tags/%E5%AE%89%E5%85%A8/">安全</a></div><div class="post-share"><div class="social-share" data-image="/img/avatar.jpg" data-sites="facebook,x,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/posts/beb2f34c.html" title="大模型 9.26最实惠的方案"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">大模型 9.26最实惠的方案</div></div><div class="info-2"><div class="info-item-1">把 13 款大模型 × 7 家渠道的价格折算成统一口径「元 / 1M tokens」，给出每个模型的最便宜买法。附完整计算明细与可复算脚本下载。</div></div></div></a><a class="pagination-related" href="/posts/bb926a11.html" title="九次改版：一个雅思刷词工具的四十二天"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">九次改版：一个雅思刷词工具的四十二天</div></div><div class="info-2"><div class="info-item-1">背单词工具的核心不是题目，是记忆本身。而记忆类应用的正确性几乎不由「写入」决定， 由「删除」和「换账号」决定——这两件事错了不会报错，只会让用户的数据悄悄复活或串号。</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/posts/9c5640a6.html" title="先跑起来，再像样：ART&#x2F;RANK 的四十八天"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-09-06</div><div class="info-item-2">先跑起来，再像样：ART&#x2F;RANK 的四十八天</div></div><div class="info-2"><div class="info-item-1">功能在第二周就做完了。剩下的六周买的是「不出错」，而账单主要开给两件事： 别人的接口，和自己的重构。650 次提交里，真正「加功能」的比例比想象中低得多。</div></div></div></a><a class="pagination-related" href="/posts/4aa2c2a.html" title="廉价判断与确定性知识：一个五子棋系统的接管架构及其边界"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-09-28</div><div class="info-item-2">廉价判断与确定性知识：一个五子棋系统的接管架构及其边界</div></div><div class="info-2"><div class="info-item-1">本文把一个已运行一个月的五子棋系统当作自然实验，考察「廉价判断模型 + 手写确定性规则」这一组合中， 能力增量究竟来自哪一层。结果显示知识层主导了 65%–76% 的决策并贡献了主要棋力增量， 而提高判断层自主权在 120 局配对样本下未产生可检出效应。</div></div></div></a><a class="pagination-related" href="/posts/16bb7f87.html" title="让一万个人格读同一段话"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-09-28</div><div class="info-item-2">让一万个人格读同一段话</div></div><div class="info-2"><div class="info-item-1">Jevtown 中文小镇的 146 次提交按时间重排：第一天跑通 mock，第二天补原子性，上线当天砍掉自己的兜底，一周后撞上 429，最后把「这次反应是成片还是零散」做成了功能。</div></div></div></a><a class="pagination-related" href="/posts/bb926a11.html" title="九次改版：一个雅思刷词工具的四十二天"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-09-16</div><div class="info-item-2">九次改版：一个雅思刷词工具的四十二天</div></div><div class="info-2"><div class="info-item-1">背单词工具的核心不是题目，是记忆本身。而记忆类应用的正确性几乎不由「写入」决定， 由「删除」和「换账号」决定——这两件事错了不会报错，只会让用户的数据悄悄复活或串号。</div></div></div></a><a class="pagination-related" href="/posts/e2b6bfa3.html" title="一架钢琴的七十三次调音：实时生成系统的时限约束与承诺缺口"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-09-28</div><div class="info-item-2">一架钢琴的七十三次调音：实时生成系统的时限约束与承诺缺口</div></div><div class="info-2"><div class="info-item-1">本文以一个实时即兴钢琴系统为对象（123 次提交、73 个编号迭代轮次、267 项单测），考察生成模型接入 实时系统后失效发生在何处、改进应当投向何处。结果显示：首次致命失效的成因是时限缺失而非音质 （决策最坏约 17 s，音频缓冲约 3.4 s）；受限的模型接口契约会摧毁连续量，须在渲染层重新解释； 而系统里反复出现的缺陷类型是「承诺—实现缺口」——签名、文档、调用方、测试齐备，只有实现不在。</div></div></div></a></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/avatar.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">tripodxu</div><div class="author-info-description">分享知识和生活感悟</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">61</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">23</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">18</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/tripodxu"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/tripodxu" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="mailto:xd04040212@163.com" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">考研笔记（数学 / 408）在持续整理，右侧分类可直接跳。<br>做过的几个小东西收在「小玩意」里，都能点开玩。</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E7%AC%AC%E4%B8%80%E5%A4%A9%E4%B8%8D%E5%86%99%E4%B8%9A%E5%8A%A1%EF%BC%8C%E5%8F%AA%E4%BF%AE%E5%8F%91%E5%B8%83"><span class="toc-number">1.</span> <span class="toc-text">一、第一天不写业务，只修发布</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E4%B8%80%E5%A4%A9-44-%E6%AC%A1%E6%8F%90%E4%BA%A4%EF%BC%8C%E5%85%A8%E6%98%AF%E3%80%8C%E8%AE%A9%E5%AE%83%E5%88%AB%E5%87%BA%E9%94%99%E3%80%8D"><span class="toc-number">2.</span> <span class="toc-text">二、一天 44 次提交，全是「让它别出错」</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89%E3%80%81%E4%B8%A4%E4%B8%AA%E9%9D%99%E9%BB%98%E5%A4%B1%E6%95%88"><span class="toc-number">3.</span> <span class="toc-text">三、两个静默失效</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%9B%E3%80%81%E4%B8%8A%E6%B8%B8%E6%8A%8A%E4%B8%A4%E7%A7%8D%E5%A4%B1%E8%B4%A5%E8%BF%94%E5%9B%9E%E6%88%90%E5%90%8C%E4%B8%80%E4%B8%AA%E7%8A%B6%E6%80%81%E7%A0%81"><span class="toc-number">4.</span> <span class="toc-text">四、上游把两种失败返回成同一个状态码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%94%E3%80%81%E8%B6%8A%E6%9D%83%E6%98%AF%E4%B8%80%E4%B8%AA%E5%8A%A8%E4%BD%9C%EF%BC%8C%E4%B8%8D%E6%98%AF%E4%B8%80%E4%B8%AA%E6%BC%8F%E6%B4%9E"><span class="toc-number">5.</span> <span class="toc-text">五、越权是一个动作，不是一个漏洞</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%A3%E4%BB%B7%E4%B8%8E%E5%B1%80%E9%99%90"><span class="toc-number">6.</span> <span class="toc-text">代价与局限</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/posts/16bb7f87.html" title="让一万个人格读同一段话">让一万个人格读同一段话</a><time datetime="2026-09-28T14:00:00.000Z" title="发表于 2026-09-28 22:00:00">2026-09-28</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/posts/e2b6bfa3.html" title="一架钢琴的七十三次调音：实时生成系统的时限约束与承诺缺口">一架钢琴的七十三次调音：实时生成系统的时限约束与承诺缺口</a><time datetime="2026-09-28T13:00:00.000Z" title="发表于 2026-09-28 21:00:00">2026-09-28</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/posts/4aa2c2a.html" title="廉价判断与确定性知识：一个五子棋系统的接管架构及其边界">廉价判断与确定性知识：一个五子棋系统的接管架构及其边界</a><time datetime="2026-09-28T12:00:00.000Z" title="发表于 2026-09-28 20:00:00">2026-09-28</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/posts/beb2f34c.html" title="大模型 9.26最实惠的方案">大模型 9.26最实惠的方案</a><time datetime="2026-09-25T15:40:00.000Z" title="发表于 2026-09-25 23:40:00">2026-09-25</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/posts/820b2ade.html" title="上线第一周都在修 CI：一间临时邮局的两个月">上线第一周都在修 CI：一间临时邮局的两个月</a><time datetime="2026-09-19T13:00:00.000Z" title="发表于 2026-09-19 21:00:00">2026-09-19</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url(/img/background.webp);"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2025 - 2026 By tripodxu</span><span class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 8.0.0</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.7.0</a></span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="translateLink" type="button" title="简繁转换">繁</button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=5.7.0"></script><script src="/js/main.js?v=5.7.0"></script><script src="/js/tw_cn.js?v=5.7.0"></script><div class="js-pjax"></div><div class="footer-running-time" style="text-align:center;padding:6px 0 2px;font-size:13px;color:#8b949c;">本站已运行：<span id="running-time">0 天 0 小时 0 分钟 0 秒</span></div><script>(function(){var s=new Date("2025-10-20T00:00:00");function u(){var n=new Date(),d=Math.floor((n-s)/1e3),D=Math.floor(d/86400);d-=D*86400;var H=Math.floor(d/3600)%24;d-=H*3600;var M=Math.floor(d/60)%60,S=d%60;var el=document.getElementById("running-time");if(el)el.innerText=D+" 天 "+H+" 小时 "+M+" 分钟 "+S+" 秒"}document.addEventListener("DOMContentLoaded",function(){u();setInterval(u,1e3)});})();</script><script>setTimeout(function(){var ns=document.querySelectorAll("[id^=busuanzi_value_]");for(var i=0;i<ns.length;i++){var el=ns[i];if(el.querySelector(".fa-spinner")||!el.textContent.trim()){var box=el.closest(".post-meta-data")||el.parentElement;if(box)box.style.display="none"}}},6000);</script><audio id="background-music" src="https://cdn.jsdelivr.net/gh/tripodxu/blog-picture-source@main/1.mp3" loop preload="none" style="display: none;"></audio><div id="music-control" style="position: fixed; bottom: 80px; right: 20px; z-index: 999; cursor: pointer; background: rgba(73, 177, 245, 0.8); color: white; width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 20px; box-shadow: 0 2px 10px rgba(0,0,0,0.2); transition: all 0.3s;" onclick="toggleMusic()">🎵</div><script>var musicPlaying = false; var audio = null; function toggleMusic() { if (!audio) { audio = document.getElementById("background-music"); if (audio) { audio.volume = 0.5; } } if (audio) { if (musicPlaying) { audio.pause(); musicPlaying = false; document.getElementById("music-control").innerHTML = "🎵"; } else { audio.play().then(function() { musicPlaying = true; document.getElementById("music-control").innerHTML = "⏸️"; }).catch(function(err) { console.log("Play failed:", err); alert("请点击页面任意位置后再试"); }); } } } document.addEventListener("DOMContentLoaded", function() { audio = document.getElementById("background-music"); if (audio) { audio.volume = 0.5; } });</script><script id="canvas_nest" defer="defer" color="0,0,255" opacity="0.7" zIndex="-1" count="99" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/dist/canvas-nest.min.js"></script><script id="click-show-text" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/dist/click-show-text.min.js" data-mobile="false" data-text="I,LOVE,DEAD,GOD,(╯°□°）╯,¯\_(ツ)_/¯,( ͡° ͜ʖ ͡°),ಠ_ಠ,¯\_(シ)_/¯,ʕ•ᴥ•ʔ,ಠ╭╮ಠ,(◉_◉),¯\_(ಠ_ಠ)_/¯,(⊙_⊙),(&gt;_&lt;),(¬‿¬),(☉_☉),(ಥ_ಥ),(☉д⊙),0x4F!3A,E7@AC:D1#,\\x1$B[31&amp;m,sudo rm% -f,404_D$EAD,NUL:0x^00,hash#FA@1C,ptr=0x$BAD,ssh 1&amp;337,ini*t 6,└─$ /dev/nu&gt;ll,SIGKIL@L-9,0day_7#R4P,hex DEA?DBEEF,rm -rf /#,NOP s&lt;led,jmp *%e&amp;ax,__stac&amp;k_chk,base64 -@d,EOF:4!18" data-fontsize="15px" data-random="true" async="async"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><i class="fas fa-spinner fa-pulse" id="loading-status" hidden="hidden"></i><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据加载中</span></div><div class="local-search-input"><input placeholder="搜点什么，比如 极限、VCF、Cloudflare" type="text"/></div><hr/><div id="local-search-results"></div><div class="ais-Pagination" id="local-search-pagination" style="display:none;"><ul class="ais-Pagination-list"></ul></div><div id="local-search-stats"></div></div><div id="search-mask"></div><script src="/js/search/local-search.js?v=5.7.0"></script></div></div></body></html>
